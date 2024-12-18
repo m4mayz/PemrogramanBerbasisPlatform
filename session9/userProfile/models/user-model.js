@@ -9,4 +9,10 @@ const getUserById = async (id) => {
     const [rows] = await db.query('SELECT * FROM users WHERE id=?', id);
     return rows;
 }
-module.exports = { getAllUsers , getUserById };
+
+const addUser = async (user) => {
+    const { name, email, phone } = user;
+    const [result] = await db.query('INSERT INTO users (name, email, phone) VALUES (?, ?, ?)', [name, email, phone]);
+    return result.insertId;
+}
+module.exports = { getAllUsers , getUserById , addUser };
