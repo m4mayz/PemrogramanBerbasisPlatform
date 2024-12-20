@@ -35,4 +35,28 @@ const addUser = async (req, res) => {
     }
 }
 
-module.exports = { getAllUsers , getUserById, addUser };
+const updateUserById = async (req, res) => {
+    try {
+        const user = await userModel.updateUserById(req.params.id, req.body);
+        if(!user) res.json({ message: 'User Not Found' });
+        res.json(user);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error Update User By Id' });
+    }
+}
+
+const deleteUserById = async (req, res) => {
+    try {
+        const user = await userModel.deleteUserById(req.params.id);
+        if(!user) res.json({ message: 'User Not Found' });
+        res.json(user);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error Delete User By Id' });
+    }
+}
+
+module.exports = { getAllUsers , getUserById, addUser, updateUserById, deleteUserById };
