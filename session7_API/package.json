@@ -4,7 +4,7 @@
   "description": "Simple Todo List API with Express.js",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app.j",
     "test": "jest"
   },
   "dependencies": {
