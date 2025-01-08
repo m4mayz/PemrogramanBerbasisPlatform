@@ -19,6 +19,11 @@
         <div id="results" class="row row-cols-1 row-cols-md-3 g-4"></div>
     </div>
 
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Popular Movies</h1>
+        <div id="popularResults" class="row row-cols-1 row-cols-md-3 g-4"></div>
+    </div>
+
     <script>
         function searchMovies(event) {
             event.preventDefault();  // Mencegah form untuk melakukan refresh halaman
@@ -61,6 +66,35 @@
                     resultsDiv.innerHTML = `<p class="text-danger text-center">Error: ${error.message}</p>`;
                 });
         }
+        function showPopularMovie() {
+            fetch(`http://localhost:3000/api/movie/popular`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to fetch data");
+                    return response.json();
+                })
+                .then(movies => {
+                    const popularResultsDiv = document.getElementById("popularResults");
+                    popularResultsDiv.innerHTML = "";
+                    movies.forEach(movie => {
+                        const movieCard = `
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="https://image.tmdb.org/t/p/w500${movie.backdrop_path}" class="card-img-top" alt="${movie.title}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${movie.title}</h5>
+                                        <p class="card-text">${movie.overview || "No description available"}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        popularResultsDiv.innerHTML += movieCard;
+                    });
+                })
+                .catch(error => {
+                    popularResultsDiv.innerHTML = `<p class="text-danger text-center">Error: ${error.message}</p>`;
+                });
+        }
+        showPopularMovie();
     </script>
 </body>
 </html>

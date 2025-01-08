@@ -30,4 +30,14 @@ const searchMovie = async (req,res)=>{
     }
 }
 
-module.exports = {searchMovie};
+const showPopularMovie = async (req,res)=>{
+    try {
+        const response = await tmdb.get('/movie/popular');
+        const movieResult = response.data.results.map(createMovie);
+        return res.status(200).json(movieResult);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = {searchMovie, showPopularMovie};
