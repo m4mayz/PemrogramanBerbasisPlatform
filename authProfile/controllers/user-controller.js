@@ -25,4 +25,15 @@ const userLogin = async (req, res) => {
         console.log(error);
     }
 }
-module.exports = {userReg, userLogin};
+
+const getAllUser = async (req, res) => {
+    try{
+        const response = await userModel.getAllUser();
+        if(response){
+            res.json(response);
+        }
+    } catch (error){
+        console.log(error);
+    }
+}
+module.exports = {userReg, userLogin, getAllUser};

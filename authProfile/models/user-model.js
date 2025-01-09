@@ -51,4 +51,14 @@ const userLogin = async (data) => {
     }
 }
 
-module.exports = {userRegistration, userLogin};
+const getAllUser = async () => {
+    try{
+        const query = 'SELECT * FROM users';
+        const [result] = await db.query(query);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = {userRegistration, userLogin, getAllUser};
